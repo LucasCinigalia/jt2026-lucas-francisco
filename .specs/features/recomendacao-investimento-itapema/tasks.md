@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Spec**: `.specs/features/recomendacao-investimento-itapema/spec.md`
-**Status**: Approved
+**Status**: Done
 
 ---
 

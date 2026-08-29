@@ -179,7 +179,7 @@ Cada ambiguidade foi resolvida com um critério definido ou registrada como assu
 ## Edge Cases
 
 - WHEN um CSV estiver vazio ou com header corrompido THEN o sistema SHALL falhar com mensagem clara (não silenciosamente).
-- WHEN `suburb` estiver nulo em Mesh mas presente em Details/VivaReal THEN o sistema SHALL tentar preencher a partir da fonte alternativa antes de marcar como "sem bairro".
+- WHEN `suburb` estiver nulo em Mesh mas presente em Details/VivaReal THEN o sistema SHALL tentar preencher a partir da fonte alternativa antes de marcar como "sem bairro". *(N/A na prática: Details não tem coluna de bairro e o VivaReal é o mercado de venda — outro espaço de ids. Documentado no `etl.py`.)*
 - WHEN um preço for 0 ou negativo THEN o sistema SHALL tratá-lo como inválido e excluí-lo da métrica, reportando a contagem.
 - WHEN `sale_price` for nulo em VivaReal THEN o anúncio SHALL ser excluído do cálculo de yield, mas permanecer na análise de mercado.
 
@@ -189,16 +189,16 @@ Cada ambiguidade foi resolvida com um critério definido ou registrada como assu
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| INV-01 | P1: Consolidação (ETL) | Specify | Pending |
-| INV-02 | P1: Métrica de receita | Specify | Pending |
-| INV-03 | P1: Perfil (Q1) | Specify | Pending |
-| INV-04 | P1: Localização (Q2) | Specify | Pending |
-| INV-05 | P1: Drivers (Q3) | Specify | Pending |
-| INV-06 | P1: Recomendação + retorno (Q4/Q5) | Specify | Pending |
-| INV-07 | P2: Qualidade/robustez | Specify | Pending |
-| INV-08 | P3: Empacotamento | Specify | Pending |
+| INV-01 | P1: Consolidação (ETL) | Execute | Verified |
+| INV-02 | P1: Métrica de receita | Execute | Verified |
+| INV-03 | P1: Perfil (Q1) | Execute | Verified |
+| INV-04 | P1: Localização (Q2) | Execute | Verified |
+| INV-05 | P1: Drivers (Q3) | Execute | Verified |
+| INV-06 | P1: Recomendação + retorno (Q4/Q5) | Execute | Verified |
+| INV-07 | P2: Qualidade/robustez | Execute | Verified |
+| INV-08 | P3: Empacotamento | Execute | Verified |
 
-**Coverage:** 8 total, 0 mapped to tasks, 8 unmapped ⚠️
+**Coverage:** 8 total, 8 mapped to tasks, 0 unmapped ✅
 
 ---
 
