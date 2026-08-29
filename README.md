@@ -1,5 +1,7 @@
 🔗 **Vídeo (até 3 min):** https://drive.google.com/file/d/1x7ux1yZf9UNNZIGoZIPkCkLAWp1mhyGe/view?usp=drive_link
 
+📄 **Transcrição:** https://docs.google.com/document/d/1sYH3u_k3YBZO1wl3OeEyS17_w190dAhsC3HUxjLGISI/edit?usp=sharing
+
 # Hackathon Jovens Talentos AI Builder 2026 — Itapema (SC)
 
 Recomendação de investimento imobiliário para a Seazone, construída com IA.
