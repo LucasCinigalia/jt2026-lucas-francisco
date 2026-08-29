@@ -1,47 +1,54 @@
-# Hackathon Jovens Talentos AI Builder 2026 — Seazone
+🔗 **Vídeo (até 3 min):** [INSERIR LINK DO GOOGLE DRIVE AQUI — compartilhar como "qualquer pessoa com o link"]
 
-## 👉 Leia o desafio aqui
+# Hackathon Jovens Talentos AI Builder 2026 — Itapema (SC)
 
-### **[ABRIR O DESAFIO COMPLETO](https://seazone-tech.github.io/jovens-talentos-2026-hackathon-data/)**
+Recomendação de investimento imobiliário para a Seazone, construída com IA.
 
-Lá está tudo: a missão, os dados, **o que entregar**, as regras, o prazo e **como vamos avaliar**.
-Leia antes de começar a mexer nos dados.
+## Resposta final
 
-> Se o link acima não abrir, o mesmo conteúdo está no arquivo [`index.html`](index.html) deste repositório
-> (baixe e abra no navegador).
+> **Recomendação:** apartamentos compactos de **2 quartos em Morretes** (yield ~12,4%, payback ~8 anos). Tese dos compactos no Centro: **parcialmente sustentada** (compactos sim, Centro não).
 
----
+A recomendação completa está em **[`relatorio.md`](relatorio.md)**.
 
-## Primeiro passo
+## Como rodar
 
-**Faça um _fork_ deste repositório.** É nele que você vai trabalhar e é ele que você entrega.
+Requisitos: `uv` (ou Python 3.10+ com `pip`).
 
----
+```bash
+# 1. Instalar dependências (pandas + duckdb)
+uv sync
 
-## Os dados (`data/`)
+# 2. Rodar o pipeline completo
+uv run python scripts/run_all.py
 
-Snapshot estático do mercado imobiliário de **Itapema (SC)**, com anúncios de Airbnb e de venda (VivaReal).
-É a mesma base para todos os candidatos, para garantir comparação justa.
+# 3. (Opcional) Rodar cada etapa individualmente
+uv run python -m invest.load        # carrega os 5 CSVs
+uv run python -m invest.etl         # consolida + cobertura
+uv run python -m invest.revenue     # ADR e receita anual
+uv run python -m invest.profile     # Q1 — perfil (yield/receita)
+uv run python -m invest.location    # Q2 — bairro (receita)
+uv run python -m invest.drivers     # Q3 — drivers de receita
+uv run python -m invest.investment  # Q4/Q5 — yield, payback, tese
+uv run python -m invest.robustness  # outliers, missing, sensibilidade
+```
 
-| Arquivo | O que tem | Como conecta |
-|---|---|---|
-| `Details_Itapema.csv` | Cada anúncio de Airbnb: título, reviews, star rating, descrição, host_id, nº de quartos, tipo de imóvel | Base principal dos listings |
-| `Hosts_ids_Itapema.csv` | Dados do anfitrião: nº de reviews, anos como host, superhost, taxa de resposta | Liga com Details pelo `owner_id` |
-| `Mesh_Ids_Data_Itapema.csv` | Latitude/longitude + bairro de cada anúncio | Liga por listing |
-| `Price_AV_Itapema.csv` | Preço por anúncio, por data de estadia e por data de captura | Liga por listing |
-| `VivaReal_Itapema.csv` | Anúncios de venda: preço, condomínio, área, vendedor | Mercado de compra |
+## Estrutura
 
----
+- `data/` — os 5 CSVs do desafio (não modificados).
+- `src/invest/` — módulos da análise (um por etapa).
+- `scripts/run_all.py` — pipeline completo.
+- `relatorio.md` — recomendação final escrita.
+- `ai-log/` — conversas com a IA em texto.
+- `.specs/` — especificação e tarefas (processo spec-driven).
 
-## Resumo do que você entrega
+## Dados
 
-1. **Este repositório, forkado e público**, com a sua análise, o `README.md` explicando como rodar,
-   a pasta `ai-log/` (conversas com a IA **em texto**) e a recomendação final escrita.
-2. **Vídeo de até 3 minutos** no Google Drive, com o link na primeira linha do seu README.
+Snapshot estático do mercado imobiliário de Itapema (SC): anúncios de Airbnb e de venda (VivaReal).
 
-O detalhe de cada item, o prazo e o formulário de entrega estão no
-**[desafio completo](https://seazone-tech.github.io/jovens-talentos-2026-hackathon-data/)**.
-
----
-
-*Seazone — Jovens Talentos AI Builder 2026*
+| Arquivo | Conteúdo |
+|---|---|
+| `Details_Itapema.csv` | Anúncios Airbnb (título, quartos, tipo, owner_id) |
+| `Hosts_ids_Itapema.csv` | Dados do host (superhost, reviews, anos) |
+| `Mesh_Ids_Data_Itapema.csv` | Lat/long + bairro |
+| `Price_AV_Itapema.csv` | Preço por anúncio/dia |
+| `VivaReal_Itapema.csv` | Anúncios de venda (preço, condomínio, área) |
