@@ -35,6 +35,9 @@ def build_listings() -> tuple[pd.DataFrame, dict]:
     report["dedup_hosts_descartadas"] = len(hosts) - len(hosts_dedup)
 
     # Junta Details + bairro (Mesh) por listing.
+    # Nota: não há backfill cross-source de suburb — Details não tem coluna de bairro e o
+    # VivaReal é do lado de venda (outro espaço de ids). A única ausência real é o literal
+    # "none" do Mesh (contado como "sem bairro" abaixo).
     base = det_dedup.merge(
         mesh_dedup[["airbnb_listing_id", "suburb"]],
         on="airbnb_listing_id",

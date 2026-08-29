@@ -5,7 +5,6 @@ description = "Recomendação de investimento imobiliário em Itapema (SC) para 
 requires-python = ">=3.10"
 dependencies = [
     "pandas",
-    "duckdb",
 ]
 
 [build-system]

@@ -91,13 +91,13 @@ Yield mediano do perfil (por bairro, T8):
 | **Yield** | **12,35%** |
 | **Payback** | **8,1 anos** |
 
-**Retorno por cenário de ocupação (Morretes):**
+**Retorno por cenário de ocupação (Morretes 2Q):**
 
 | Ocupação | Yield | Payback |
 |---|---|---|
-| 50% | 10,4% | 9,6 anos |
-| 60% | 12,6% | 8,0 anos |
-| 70% | 14,8% | 6,8 anos |
+| 50% | 10,2% | 9,8 anos |
+| 60% | 12,4% | 8,1 anos |
+| 70% | 14,5% | 6,9 anos |
 
 ---
 

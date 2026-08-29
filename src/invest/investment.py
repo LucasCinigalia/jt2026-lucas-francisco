@@ -125,28 +125,33 @@ def main() -> None:
 
 
 def _print_example(df: pd.DataFrame) -> None:
-    """Seleciona um anúncio real do VivaReal representativo do vencedor da tese."""
+    """Seleciona um anúncio real do VivaReal representativo da recomendação (Morretes, ap 2Q)."""
     v = market.load_vivareal()
     res = v[v["listing_type"].eq("apartamento") & (v["sale_price"] > 0)].copy()
     res["suburb_norm"] = res["suburb"].map(normalize_suburb)
-    centro = res[res["suburb_norm"].eq("centro") & res["bedrooms"].le(1)]
-    if centro.empty:
-        centro = res[res["suburb_norm"].eq("centro")]
+    alvo = res[res["suburb_norm"].eq("morretes") & res["bedrooms"].eq(2)]
 
-    pick = centro.sort_values("sale_price").iloc[len(centro) // 2]
-    custo = (pick.get("monthly_condo_fee") or 0) * 12 + (pick.get("yearly_iptu") or 0)
+    pick = alvo.sort_values("sale_price").iloc[len(alvo) // 2]
 
-    dfc = df[(df["suburb_norm"].eq("centro")) & (df["listing_type"].eq("apartamento")) & (df["number_of_bedrooms"].le(1))]
-    rev_ref = dfc["receita_anual"].median() if not dfc.empty else float("nan")
+    # Custos usam a mediana do perfil (condomínio/IPTU do anúncio individual são erráticos, ex.: R$ 12).
+    dfc = df[
+        (df["suburb_norm"].eq("morretes"))
+        & (df["listing_type"].eq("apartamento"))
+        & (df["number_of_bedrooms"].eq(2))
+    ]
+    rev_ref = dfc["receita_anual"].median()
+    condo = dfc["condo_mediano"].median() or 0
+    iptu = dfc["iptu_mediano"].median() or 0
+    custo = condo * 12 + iptu
 
-    print("\n\nEXEMPLO CONCRETO (anúncio mediano do VivaReal — Centro, ap 0–1Q):\n")
+    print("\n\nEXEMPLO CONCRETO (anúncio mediano do VivaReal — Morretes, ap 2Q):\n")
     print(f"  Título: {pick.get('listing_title')}")
     print(f"  Preço de venda: R$ {pick.get('sale_price'):,.0f}")
-    print(f"  Condomínio: R$ {pick.get('monthly_condo_fee') or 0:,.0f}/mês | IPTU: R$ {pick.get('yearly_iptu') or 0:,.0f}/ano")
     print(f"  Área útil: {pick.get('usable_area')} m² | Quartos: {pick.get('bedrooms')}")
+    print(f"  Custos (mediana do perfil): condomínio R$ {condo:,.0f}/mês + IPTU R$ {iptu:,.0f}/ano")
     print(f"  Receita bruta anual (mediana do perfil, 60%): R$ {rev_ref:,.0f}")
     for occ in OCCUPANCIES:
-        r = rev_ref * (occ / revenue.DEFAULT_OCCUPANCY) if not pd.isna(rev_ref) else float("nan")
+        r = rev_ref * (occ / revenue.DEFAULT_OCCUPANCY)
         y = (r - custo) / pick["sale_price"]
         pb = pick["sale_price"] / (r - custo)
         print(f"  ocupação {int(occ*100)}%: yield {y:.1%} | payback {pb:.1f} anos")

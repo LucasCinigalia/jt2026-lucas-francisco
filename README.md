@@ -15,7 +15,7 @@ A recomendação completa está em **[`relatorio.md`](relatorio.md)**.
 Requisitos: `uv` (ou Python 3.10+ com `pip`).
 
 ```bash
-# 1. Instalar dependências (pandas + duckdb)
+# 1. Instalar dependências (pandas)
 uv sync
 
 # 2. Rodar o pipeline completo
