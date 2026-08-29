@@ -1,4 +1,4 @@
-🔗 **Vídeo (até 3 min):** [INSERIR LINK DO GOOGLE DRIVE AQUI — compartilhar como "qualquer pessoa com o link"]
+🔗 **Vídeo (até 3 min):** https://drive.google.com/file/d/1x7ux1yZf9UNNZIGoZIPkCkLAWp1mhyGe/view?usp=drive_link
 
 # Hackathon Jovens Talentos AI Builder 2026 — Itapema (SC)
 
